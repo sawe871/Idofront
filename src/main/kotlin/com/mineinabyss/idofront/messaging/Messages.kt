@@ -42,23 +42,23 @@ fun logSuccess(message: String, colorChar: Char? = null) = logInfo(message, colo
 fun logWarn(message: String, colorChar: Char? = null) = logInfo(message, colorChar, ChatColor.YELLOW)
 
 @JvmOverloads
-fun CommandSender.info(message: String, color: ChatColor = ChatColor.WHITE, colorChar: Char? = null) {
+fun CommandSender.info(message: String, colorChar: Char? = null, color: ChatColor = ChatColor.WHITE) {
     sendMessage(message.translateAndColor(color, colorChar))
 }
 
 @JvmOverloads
-fun CommandSender.error(message: String, colorChar: Char? = null) = info(message, ChatColor.RED, colorChar)
+fun CommandSender.error(message: String, colorChar: Char? = null) = info(message, colorChar, ChatColor.RED)
 
 @JvmOverloads
-fun CommandSender.success(message: String, colorChar: Char? = null) = info(message, ChatColor.GREEN, colorChar)
+fun CommandSender.success(message: String, colorChar: Char? = null) = info(message, colorChar, ChatColor.GREEN)
 
 /**
  * Translates a string using Minecraft color codes with [ChatColor.translateAlternateColorCodes]
  */
 @JvmOverloads
-fun String.translateColors(colorChar: Char = '&') = ChatColor.translateAlternateColorCodes(colorChar, this)
+fun String.color(colorChar: Char = '&') = ChatColor.translateAlternateColorCodes(colorChar, this)
 
 private fun String.translateAndColor(color: ChatColor, colorChar: Char?): String {
-    val translatedMessage = if (colorChar != null) this.translateColors(colorChar) else this
+    val translatedMessage = if (colorChar != null) this.color(colorChar) else this
     return "$color$translatedMessage"
 }
